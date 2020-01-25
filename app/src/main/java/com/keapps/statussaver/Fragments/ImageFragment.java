@@ -23,6 +23,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.keapps.statussaver.Adapters.ImageAdapter;
+import com.keapps.statussaver.Main2Activity;
 import com.keapps.statussaver.MainActivity;
 import com.keapps.statussaver.Model.StatusModel;
 import com.keapps.statussaver.R;
@@ -198,5 +199,9 @@ public class ImageFragment extends Fragment {
         destination.transferFrom(source,0,source.size());
         source.close();
         destination.close();
+    }
+
+    public void loadPic() {
+        return;
     }
 }

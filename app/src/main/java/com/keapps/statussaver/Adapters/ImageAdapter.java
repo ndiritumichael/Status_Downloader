@@ -1,11 +1,14 @@
 package com.keapps.statussaver.Adapters;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import android.widget.ImageView;
 
@@ -17,6 +20,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.keapps.statussaver.Fragments.ImageFragment;
 import com.keapps.statussaver.Fragments.PictureView;
+import com.keapps.statussaver.Main2Activity;
+import com.keapps.statussaver.MainActivity;
 import com.keapps.statussaver.Model.StatusModel;
 import com.keapps.statussaver.R;
 
@@ -26,9 +31,12 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+
 import static android.content.ContentValues.TAG;
 
+
 public class ImageAdapter extends RecyclerView.Adapter <ImageAdapter.ImageHolder>{
+
 
     private final List<StatusModel> imageList;
     Context context;
@@ -52,8 +60,22 @@ public class ImageAdapter extends RecyclerView.Adapter <ImageAdapter.ImageHolder
     @Override
     public void onBindViewHolder(@NonNull ImageAdapter.ImageHolder holder, final int position) {
 
-        StatusModel statusModel = imageList.get(position);
+        final StatusModel statusModel = imageList.get(position);
         holder.imageView.setImageBitmap(statusModel.getThumbnail());
+        holder.imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle args = new Bundle();
+                String x = statusModel.getFile().toString();
+                args.putString("Key", x);
+
+
+                AppCompatActivity activity = (AppCompatActivity) v.getContext();
+                Fragment myFragment = new PictureView();
+                myFragment.setArguments(args);
+                activity.getSupportFragmentManager().beginTransaction().replace(R.id.frameView, myFragment).addToBackStack(null).commit();
+            }
+        });
         /*holder.imageButtonDownload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -100,6 +122,7 @@ public class ImageAdapter extends RecyclerView.Adapter <ImageAdapter.ImageHolder
                     }
                 }
             });
+
 
         }
     }
