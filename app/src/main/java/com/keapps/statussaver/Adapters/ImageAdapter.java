@@ -67,13 +67,11 @@ public class ImageAdapter extends RecyclerView.Adapter <ImageAdapter.ImageHolder
             public void onClick(View v) {
                 Bundle args = new Bundle();
                 String x = statusModel.getFile().toString();
-                args.putString("Key", x);
+                if (x != null) {
+                    imageFragment.loadPic(x);
+                }
+                else{ Log.d("errors","Cant load image");}
 
-
-                AppCompatActivity activity = (AppCompatActivity) v.getContext();
-                Fragment myFragment = new PictureView();
-                myFragment.setArguments(args);
-                activity.getSupportFragmentManager().beginTransaction().replace(R.id.frameView, myFragment).addToBackStack(null).commit();
             }
         });
         /*holder.imageButtonDownload.setOnClickListener(new View.OnClickListener() {

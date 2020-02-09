@@ -14,10 +14,17 @@
         android:id="@+id/reLative">
    <ImageView
        android:layout_width="match_parent"
-       android:layout_height="@dimen/_300sdp"
-       android:scaleType="centerCrop"
+       android:layout_height="@dimen/_400sdp"
+
        android:id="@+id/pictureLoad"
+       android:visibility="gone"
        />
+        <VideoView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_400sdp"
+            android:id="@+id/videoLoad"
+            android:visibility="gone"
+            />
 
         <Button
             android:layout_width="match_parent"

@@ -1,5 +1,7 @@
 package com.keapps.statussaver.Fragments;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -43,6 +45,7 @@ import butterknife.ButterKnife;
 import static android.content.ContentValues.TAG;
 
 public class ImageFragment extends Fragment {
+    OnSendMessageListener onSendMessageListener;
     private static final String TAG = "MyActivity";
 
     @BindView(R.id.imageRecycler)
@@ -64,7 +67,7 @@ public class ImageFragment extends Fragment {
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(),2));
         getStatus();  }
 
-    private void getStatus()  {
+    public void getStatus()  {
         Log.v(TAG,"mikewildid this and that");
         if (MyConstants.STATUS_DIRECTORY.exists()){
             new Thread(new Runnable() {
@@ -140,7 +143,7 @@ public class ImageFragment extends Fragment {
         }
     }
 
-    private Bitmap getThumbnail(StatusModel statusModel) {
+    public Bitmap getThumbnail(StatusModel statusModel) {
 
 
             if (statusModel.getVideo()){
@@ -201,7 +204,31 @@ public class ImageFragment extends Fragment {
         destination.close();
     }
 
-    public void loadPic() {
-        return;
+
+
+    public interface OnSendMessageListener{
+
+        void onMessageSend(String filePath);
+    }
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        Activity activity = (Activity) context;
+        try {
+            onSendMessageListener = (OnSendMessageListener) activity;
+
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString() + "must implement OnMessageSend");
+        }
+
+    }
+
+
+    public void loadPic(String x) {
+        Log.d("ufala","the string is"+ x);
+
+
+        onSendMessageListener.onMessageSend(x);
     }
 }
